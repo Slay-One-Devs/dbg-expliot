@@ -1,5 +1,7 @@
 
-![Logo](./logo.png)
+<div align="center">
+  <img src="./logo.png" alt="Logo" />
+</div>
 
 # Exploit Report 'dbg' 
 ---
