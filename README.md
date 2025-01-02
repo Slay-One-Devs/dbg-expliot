@@ -4,6 +4,7 @@
 </div>
 
 # Exploit Report 'dbg' 
+This repository documents a vulnerability, for cross-site scripting (XSS) attacks, in Slay.one's, a popular web-based pixel shooter game, replay files.
 
 ## Introduction 
 [Slay.one](https://slay.one) is a popular web-based, top-down pixel shooter game. Despite its engaging gameplay, it suffers from a serious vulnerability that exposes users to cross-site scripting (XSS) attacks. This report outlines the nature of the vulnerability, how it can be exploited, and recommendations for mitigating the risk.
